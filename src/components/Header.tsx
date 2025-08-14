@@ -41,27 +41,43 @@ const Header = () => {
   };
 
   const menuItemVariants = {
-    open: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 20 } },
-    closed: { y: 20, opacity: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
+    open: { 
+      y: 0, 
+      opacity: 1, 
+      transition: { 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 20 
+      } 
+    },
+    closed: { 
+      y: 20, 
+      opacity: 0, 
+      transition: { 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 20 
+      } 
+    }
   };
 
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/70 backdrop-blur-xl shadow-md border-b border-gray-200'
+          ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-200'
           : 'bg-transparent'
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-3 md:py-4">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="text-2xl font-bold cursor-pointer"
+            className="text-xl sm:text-2xl font-bold cursor-pointer"
             onClick={() => scrollToSection('#hero')}
           >
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm">
@@ -81,7 +97,7 @@ const Header = () => {
                 onClick={() => scrollToSection(item.href)}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`relative px-4 py-2.5 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${
+                className={`relative px-3 sm:px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${
                   activeSection === item.href
                     ? 'text-blue-600 bg-blue-50 shadow-sm'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-blue-600'
@@ -122,10 +138,11 @@ const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden"
             >
               <motion.div
-                className="bg-white/90 backdrop-blur-lg border-t border-gray-200 py-3 px-4 space-y-1 rounded-b-2xl shadow-lg"
+                className="bg-white/95 backdrop-blur-lg border-t border-gray-200 py-2 px-3 space-y-1 rounded-b-xl shadow-lg"
                 initial="closed"
                 animate="open"
                 exit="closed"
