@@ -9,7 +9,8 @@ const Hero = () => {
   const fullText = "Passionné par le développement d'applications web performantes et innovantes";
 
   const profileImages = [
-    "https://i.postimg.cc/P5WgZsrG/IMG-20250723-WA0053.jpg",
+    "https://i.postimg.cc/zXnLp1rN/IMG-20250830-152944.jpg",
+    "https://i.postimg.cc/qMXRyXsM/IMG-20250830-153002.jpg",
   ];
 
   useEffect(() => {

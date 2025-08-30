@@ -7,7 +7,7 @@ const skillCategories = [
   {
     title: 'Frontend',
     icon: <Code className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-    skills: ['React', 'Next.js', 'HTML', 'CSS', 'JavaScript', 'TypeScript', 'Tailwind CSS'],
+    skills: ['React', 'HTML', 'CSS', 'JavaScript', 'TypeScript', 'Tailwind CSS'],
     color: 'from-blue-600 to-cyan-600',
   },
   {
@@ -19,19 +19,19 @@ const skillCategories = [
   {
     title: 'Base de données',
     icon: <Database className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-    skills: ['PostgreSQL', 'MySQL', 'MongoDB'],
+    skills: ['PostgreSQL', 'MySQL'],
     color: 'from-purple-600 to-pink-600',
   },
   {
     title: 'Outils',
     icon: <GitBranch className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-    skills: ['Git', 'Docker', 'Postman', 'VS Code', 'Figma'],
+    skills: ['Git', 'Adobe XD', 'Postman', 'VS Code', 'Canva', 'Figma', 'Photoshop'],
     color: 'from-orange-600 to-red-600',
   },
   {
     title: 'Mobile',
     icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-    skills: ['Kotlin', 'Android Studio', 'React Native'],
+    skills: ['React Native'],
     color: 'from-indigo-600 to-blue-600',
   },
 ];
