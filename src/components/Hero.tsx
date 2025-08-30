@@ -9,8 +9,8 @@ const Hero = () => {
   const fullText = "Passionné par le développement d'applications web performantes et innovantes";
 
   const profileImages = [
-    "https://i.postimg.cc/zXnLp1rN/IMG-20250830-152944.jpg",
-    "https://i.postimg.cc/qMXRyXsM/IMG-20250830-153002.jpg",
+    "https://i.postimg.cc/90Q9K8tb/1756461510546.png",
+    "https://i.postimg.cc/15TF7Kg0/1756461525539.png",
   ];
 
   useEffect(() => {
