@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, MessageCircle, ExternalLink, ArrowDown } from 'lucide-react';
+import { Download, MessageCircle, ExternalLink, ArrowDown, X } from 'lucide-react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,12 +7,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [showCVPreview, setShowCVPreview] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const fullText = "Passionné par le développement d'applications web performantes et innovantes";
 
   const profileImages = [
-  "https://i.postimg.cc/90Q9K8tb/1756461510546.png",
+    "https://i.postimg.cc/90Q9K8tb/1756461510546.png",
     "https://i.postimg.cc/15TF7Kg0/1756461525539.png",
   ];
+
+  // Changement automatique d'image toutes les 10 secondes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % profileImages.length);
+    }, 10000); // 10 secondes
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     let index = 0;
@@ -34,14 +44,14 @@ const Hero = () => {
     await loadFull(main);
   };
 
-  // Afficher la prévisualisation du CV
-  const showCV = () => {
-    setShowCVPreview(true);
+  // Ouvrir le CV dans un nouvel onglet
+  const openCV = () => {
+    window.open('https://drive.google.com/file/d/1cdTppmp3ebPaDvyd2JpjYmwgCCTLjiqM/view?usp=drive_link', '_blank');
   };
 
-  // Télécharger le CV après la prévisualisation
+  // Télécharger le CV directement
   const downloadCV = () => {
-    window.open('https://drive.google.com/file/d/1cdTppmp3ebPaDvyd2JpjYmwgCCTLjiqM/view?usp=drive_link', '_blank');
+    window.open('https://drive.google.com/uc?export=download&id=1cdTppmp3ebPaDvyd2JpjYmwgCCTLjiqM', '_blank');
   };
 
   return (
@@ -97,7 +107,7 @@ const Hero = () => {
         className="absolute inset-0 z-0"
       />
 
-      {/* Overlay de prévisualisation du CV */}
+      {/* Overlay de prévisualisation du CV - Version simplifiée */}
       <AnimatePresence>
         {showCVPreview && (
           <motion.div
@@ -112,41 +122,55 @@ const Hero = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: 'spring', damping: 20 }}
-              className="bg-white rounded-xl overflow-hidden max-w-4xl w-full max-h-[90vh]"
+              className="bg-white rounded-xl overflow-hidden max-w-2xl w-full p-6"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center p-4 bg-gray-100 border-b">
-                <h3 className="text-lg font-semibold text-gray-800">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-semibold text-gray-800">
                   Mon CV - Doteu Diekep Franck Williams
                 </h3>
                 <button
                   onClick={() => setShowCVPreview(false)}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-gray-500 hover:text-gray-700 transition-colors p-1"
                 >
                   <X size={24} />
                 </button>
               </div>
               
-              <div className="h-[70vh]">
-                <iframe
-                  src="https://drive.google.com/file/d/1cdTppmp3ebPaDvyd2JpjYmwgCCTLjiqM/preview"
-                  className="w-full h-full"
-                  frameBorder="0"
-                  allow="autoplay"
-                />
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+                  <Download size={32} className="text-white" />
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Voulez-vous visualiser ou télécharger mon CV ?
+                </p>
               </div>
 
-              <div className="p-4 bg-gray-100 border-t flex justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={openCV}
+                  className="flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300"
+                >
+                  <ExternalLink size={20} className="mr-2" />
+                  Visualiser
+                </motion.button>
+                
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={downloadCV}
-                  className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-semibold shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
+                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-semibold shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
                 >
                   <ArrowDown size={20} className="mr-2" />
-                  Télécharger le CV
+                  Télécharger
                 </motion.button>
               </div>
+
+              <p className="text-sm text-gray-500 text-center mt-4">
+                Le CV s'ouvrira dans un nouvel onglet
+              </p>
             </motion.div>
           </motion.div>
         )}
@@ -181,15 +205,15 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-              {/* Bouton modifié pour afficher d'abord le CV */}
+              {/* Bouton modifié pour afficher le menu CV */}
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={showCV}
+                onClick={() => setShowCVPreview(true)}
                 className="inline-flex items-center px-6 py-2.5 md:px-8 md:py-3 rounded-full font-semibold text-base md:text-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-offset-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg focus:ring-blue-300"
               >
-                <ExternalLink size={18} className="md:size-5 mr-2" />
-                Voir mon CV
+                <Download size={18} className="md:size-5 mr-2" />
+                voir et Télécharger Mon CV
               </motion.button>
               
               <CTAButton
@@ -201,7 +225,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Profile Image */}
+          {/* Profile Image avec défilement automatique */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -209,13 +233,19 @@ const Hero = () => {
             className="flex justify-center lg:justify-end order-first lg:order-last"
           >
             <div className="relative group">
-              <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl">
+              <motion.div
+                key={currentImageIndex}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl"
+              >
                 <img
-                  src={profileImages[0]}
+                  src={profileImages[currentImageIndex]}
                   alt="Portrait de Doteu Diekep Franck Williams"
                   className="w-full h-full object-cover transition-opacity duration-300 hover:opacity-95"
                 />
-              </div>
+              </motion.div>
               <div className="absolute -bottom-3 -right-3 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
                 <span className="text-2xl sm:text-3xl transform group-hover:scale-110 transition-transform duration-300">👋</span>
               </div>
